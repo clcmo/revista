@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ARTICLES = ROOT / "content" / "artigos"
 OUTPUT = ROOT / "site" / "preview.html"
-THEME_CSS = ROOT / "site" / "ourbanna-theme.css"
+THEME_CSS = ROOT / "site" / "urbanna-theme.css"
 PREVIEW_CSS = ROOT / "site" / "preview.css"
 THEME_STYLESHEETS = (
     "https://ourbanna.com/wp-content/themes/urbanna-theme/assets/css/style.css?ver=1.1.0",
@@ -69,10 +69,32 @@ def main():
     OUTPUT.write_text(f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Revista | Preview urbanna</title>
-<link rel="stylesheet" href="ourbanna-theme.css">
-<link rel="stylesheet" href="preview.css"></head><body><header><p>Visualizacao local · branch test/ourbanna-content</p><h1>Ourbanna<br>em revista</h1></header>
-<main>{stories or '<p>Nenhum artigo importado.</p>'}</main></body></html>""", encoding="utf-8")
+<title>urbanna em revista | Assinantes</title>
+<link rel="stylesheet" href="urbanna-theme.css">
+<link rel="stylesheet" href="preview.css"></head><body><header><p>Área exclusiva para assinantes</p><h1>urbanna<br>em revista</h1></header>
+<section class="subscriber-gate" id="subscriber-gate" aria-labelledby="gate-title">
+    <p class="eyebrow">Conteúdo reservado</p>
+    <h2 id="gate-title">Entre para ler a edição</h2>
+    <p>Confirme o e-mail da sua assinatura para acessar os resumos desta edição.</p>
+    <form id="subscriber-form"><label for="subscriber-email">E-mail da assinatura</label>
+        <input id="subscriber-email" name="email" type="email" autocomplete="email" required>
+        <button type="submit">Acessar edição</button>
+    </form>
+    <p class="gate-note">Esta visualização é exclusiva para assinantes.</p>
+</section>
+<main id="subscriber-content" hidden>{stories or '<p>Nenhum artigo importado.</p>'}</main>
+<script>
+    const form = document.querySelector('#subscriber-form');
+    const gate = document.querySelector('#subscriber-gate');
+    const content = document.querySelector('#subscriber-content');
+    const key = 'urbanna-assinante';
+    function unlock() {{ gate.hidden = true; content.hidden = false; }}
+    if (localStorage.getItem(key) === 'true') unlock();
+    form.addEventListener('submit', (event) => {{
+        event.preventDefault();
+        if (form.reportValidity()) {{ localStorage.setItem(key, 'true'); unlock(); }}
+    }});
+</script></body></html>""", encoding="utf-8")
     print(f"preview: {OUTPUT}")
 
 
