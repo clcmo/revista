@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revista</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f4f1ea; color: #222; }
+    header { padding: 1rem 1.5rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between; }
+    a.botao { background: #1b4f72; color: #fff; padding: .5rem 1rem; border-radius: .4rem; text-decoration: none; }
+    iframe { width: 100%; height: calc(100vh - 4.5rem); border: 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Edição mais recente</strong>
+    <a class="botao" href="revista.pdf" download>Baixar PDF</a>
+  </header>
+  <iframe src="revista.pdf" title="Revista em PDF"></iframe>
+</body>
+</html>

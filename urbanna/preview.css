@@ -1,0 +1,29 @@
+:root {
+  --preview-ink: #20252b;
+  --preview-paper: #f4f0e8;
+  --preview-accent: #b4492f;
+  --preview-muted: #746c63;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--preview-paper); color: var(--preview-ink); font-family: "Work Sans", sans-serif; }
+header { padding: clamp(2rem, 7vw, 6rem) 7vw 3rem; background: var(--preview-ink); color: #f8f3e9; }
+header h1 { max-width: 900px; margin: 0; font-family: Urbanist, sans-serif; font-size: clamp(3rem, 8vw, 7rem); line-height: .9; font-weight: 800; }
+header p { color: #d9cfc1; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+main { max-width: 1180px; margin: 0 auto; padding: 2rem 7vw 6rem; }
+.subscriber-gate { max-width: 620px; margin: 4rem auto; padding: 2.5rem; background: #fffaf2; border: 1px solid #cfc5b8; }
+.subscriber-gate h2 { margin: .35rem 0 .8rem; font-family: Urbanist, sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; }
+.subscriber-gate p { line-height: 1.5; }
+.subscriber-gate form { display: grid; gap: .6rem; margin-top: 1.5rem; }
+.subscriber-gate label { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.subscriber-gate input { min-height: 2.8rem; padding: .6rem .75rem; border: 1px solid #aaa096; background: #fff; font: inherit; }
+.subscriber-gate button { min-height: 2.8rem; border: 0; background: var(--preview-accent); color: #fff; cursor: pointer; font: 700 .8rem "Work Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.gate-note { color: var(--preview-muted); font-size: .85rem; }
+.story { display: grid; grid-template-columns: minmax(180px, 32%) 1fr; gap: clamp(1.5rem, 4vw, 4rem); padding: 3rem 0; border-bottom: 1px solid #cfc5b8; }
+.story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.story-body { max-width: 720px; }
+.eyebrow { color: var(--preview-accent); font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.story h2 { margin: .35rem 0 .8rem; font-family: Urbanist, sans-serif; font-size: clamp(1.8rem, 4vw, 3.6rem); line-height: 1; }
+.summary { color: var(--preview-muted); font-size: 1.1rem; line-height: 1.5; }
+.byline { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 700px) { .story { display: block; } .story img { margin-bottom: 1.5rem; } }
