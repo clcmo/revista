@@ -1,13 +1,13 @@
 ---
 titulo: Uma corrida pela vida: Lito Sousa, do canal “Aviões e Músicas”, enfrenta doença rara
 autor: danskbarion
-secao: Noticias, Aviões e Músicas, Corrente, Doença de Creutzfeldt-Jakob, YouTube
+secao: Noticias
 ordem: 104
 resumo: Lito Sousa, piloto e criador do canal “Aviões e Músicas”, enfrenta doenças graves, mobilizando apoio.
 data_publicacao: 2026-08-24
 fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/
-imagem_arquivo: assets/cache/auto-04-uma-corrida-pela-vida-lito-sousa-do-canal-avi-es-e-m-sicas-enfrenta-do.png
+imagem_arquivo: assets/cache/auto-04-uma-corrida-pela-vida-lito-sousa-do-canal-avi-es-e-m-sicas-enfrenta-do.webp
 ---
 Fonte: [https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/](https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/)
 

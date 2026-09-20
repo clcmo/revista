@@ -1,7 +1,7 @@
 ---
 titulo: Eurovision: Portugal fora da final, Israel dentro e sob controvérsias
 autor: Camila L. Oliveira
-secao: Noticias, Anistia Internacional, Boicote, Eurovision, Israel, Palestina, Portugal, Semifinal
+secao: Noticias
 ordem: 108
 resumo: Semifinal marcada por polêmicas até antes da realização, já constata o que muitos fãs estão cansados de perceber.
 data_publicacao: 2026-05-12

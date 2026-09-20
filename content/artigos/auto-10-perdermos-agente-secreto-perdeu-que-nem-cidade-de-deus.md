@@ -1,7 +1,7 @@
 ---
 titulo: Perdermos: Agente Secreto perdeu, que nem Cidade de Deus
 autor: Camila L. Oliveira
-secao: Fala Milla, Noticias, Agente Secreto, Ainda Estou Aqui, Brasil, Cinema
+secao: Fala Milla, Noticias
 ordem: 110
 resumo: Se não fizemos história daquela forma, fizemos por outra.
 data_publicacao: 2026-03-16

@@ -168,7 +168,9 @@ def publication_categories(item, fallback):
                 categories.extend(
                     text(term.get("name"))
                     for term in group
-                    if isinstance(term, dict) and term.get("name")
+                    if isinstance(term, dict)
+                    and term.get("taxonomy", "category") == "category"
+                    and term.get("name")
                 )
     return ", ".join(dict.fromkeys(categories)) or fallback
 
@@ -217,7 +219,10 @@ def rss_items(source):
         categories = [
             text(child.text)
             for child in item.iter()
-            if child.tag.rsplit("}", 1)[-1] == "category" and child.text
+            if child.tag.rsplit("}", 1)[-1] == "category"
+            and child.text
+            and child.attrib.get("domain", "category") != "post_tag"
+            and child.attrib.get("domain", "category") != "tag"
         ]
         items.append({
             "title": xml_value(item, {"title"}),

@@ -1,7 +1,7 @@
 ---
 titulo: Manifestação Política nos Shows: Festival de Lukas Podolski retirou Alphaville por serem “políticos demais”
 autor: Camila L. Oliveira
-secao: Noticias, Shows, Alphaville, Cancelamento, Debate, Festivais, Política
+secao: Noticias, Shows
 ordem: 102
 resumo: Banda foi desconvidada de festival criado por Lukas Podolski (do 7×1) por serem “políticos demais”, mas artistas conservadores estão no lineup.
 data_publicacao: 2026-09-02
