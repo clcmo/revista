@@ -22,6 +22,17 @@ jobs:
       - name: Import content from RSS and APIs
         run: python3 scripts/fetch_content.py
 
+      - name: Convert WebP images for LuaLaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+          for image in assets/cache/*.webp; do
+            [ -e "$image" ] || continue
+            dwebp "$image" -o "${image%.webp}.png"
+            rm "$image"
+          done
+          sed -i 's/\.webp/\.png/g' content/artigos/*.md
+
       - name: Generate local preview
         run: python3 scripts/build_preview.py
 
