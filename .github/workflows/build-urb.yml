@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: build-urbanna-test
@@ -34,16 +34,25 @@ jobs:
 
       - name: Prepare Pages artifact
         run: |
-          mkdir -p public
-          cp main.pdf public/revista.pdf
-          cp site/index.html public/index.html
-          cp site/preview.html public/preview.html
-          cp site/preview.css public/preview.css
-          cp site/urbanna-theme.css public/urbanna-theme.css
+          mkdir -p public/urbanna
+          cp main.pdf public/urbanna/revista.pdf
+          cp site/index.html public/urbanna/index.html
+          cp site/preview.html public/urbanna/preview.html
+          cp site/preview.css public/urbanna/preview.css
+          cp site/urbanna-theme.css public/urbanna/urbanna-theme.css
           cp -R assets public/assets
+          touch public/.nojekyll
 
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
           name: urbanna-preview
           path: public
+
+      - name: Deploy to GitHub Pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
+          keep_files: true
