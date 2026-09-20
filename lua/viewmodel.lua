@@ -89,6 +89,7 @@ function M.selecionar(i)
   local m = a.meta
   local palavras = 0
   for _ in a.corpo:gmatch("%S+") do palavras = palavras + 1 end
+  tex.sprint(palavras < 450 and "\\ArtColunasfalse" or "\\ArtColunastrue")
 
   local secao = m.secao or ""
   tex.sprint(secao ~= estado.secao_anterior and "\\ArtNovaSecaotrue" or "\\ArtNovaSecaofalse")

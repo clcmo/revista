@@ -2,7 +2,7 @@
 % consome as macros \Rev... e \Art... produzidas pelo ViewModel (lua/viewmodel.lua).
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{revista}[2026/09/19 Modelo de revista em LuaLaTeX (View)]
-\LoadClass[10pt,a4paper]{scrartcl}
+\LoadClass[14pt,a4paper]{scrartcl}
 
 \RequirePackage{iftex}
 \RequireLuaTeX
@@ -20,6 +20,8 @@
 % ---- Ponte com o ViewModel -------------------------------------------------
 \directlua{vm = dofile("lua/viewmodel.lua")}
 \newif\ifArtNovaSecao
+\newif\ifArtColunas
+\ArtColunastrue
 \AtBeginDocument{%
   \directlua{vm.iniciar()}%
   \definecolor{revcor}{HTML}{\RevCor}%
@@ -30,6 +32,7 @@
 \setcounter{tocdepth}{2}
 \addto\captionsbrazilian{\renewcommand*{\contentsname}{Nesta edição}}
 \setkomafont{disposition}{\sffamily\bfseries}
+\linespread{1.5}\selectfont
 \pagestyle{scrheadings}
 \clearpairofpagestyles
 \cfoot{\sffamily\footnotesize\color{revcor}\RevTitulo\ \textbullet\ nº\,\RevNumero\ \textbullet\ \pagemark}
@@ -96,18 +99,20 @@
   \vspace{.5ex}%
   {\raggedright\sffamily\bfseries\fontsize{26}{29}\selectfont\ArtTitulo\par}%
   \ifdefempty{\ArtResumo}{}{\vspace{1.2ex}{\raggedright\large\itshape\ArtResumo\par}}%
-  \vspace{1.2ex}%
-  {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%
-   \ifdefempty{\ArtData}{}{\ArtData\ \textbullet\ }%
-   \ArtLeitura\,min de leitura\par}%
-  \ifdefempty{\ArtFonte}{}{\vspace{.3ex}{\sffamily\tiny\ArtFonte\ifdefempty{\ArtURL}{}{\space\textbullet\space\ArtURL}\par}}%
-  \vspace{.4ex}{\color{revcor}\hrule height 1.2pt}\vspace{1.4ex}%
-  \ifdefempty{\ArtImagem}{}{%
-    \begin{center}
-      \includegraphics[width=\textwidth]{\ArtImagem}\\[-.2ex]
-      \ifdefempty{\ArtCredito}{}{{\sffamily\tiny\ArtCredito}}
-    \end{center}\vspace{.6ex}}%
-  \begin{multicols}{2}\ArtCorpo\end{multicols}}
+  \begin{samepage}
+    \vspace{1.2ex}%
+    {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%
+     \ifdefempty{\ArtData}{}{\ArtData\ \textbullet\ }%
+     \ArtLeitura\,min de leitura\par}%
+    \ifdefempty{\ArtFonte}{}{\vspace{.3ex}{\sffamily\tiny\ArtFonte\ifdefempty{\ArtURL}{}{\space\textbullet\space\ArtURL}\par}}%
+    \vspace{.4ex}{\color{revcor}\hrule height 1.2pt}\vspace{1.4ex}%
+    \ifdefempty{\ArtImagem}{}{%
+      \begin{center}
+        \includegraphics[width=\textwidth]{\ArtImagem}\\[-.2ex]
+        \ifdefempty{\ArtCredito}{}{{\sffamily\tiny\ArtCredito}}
+      \end{center}\vspace{.6ex}}%
+  \end{samepage}%
+  \ifArtColunas\begin{multicols}{2}\ArtCorpo\end{multicols}\else\ArtCorpo\fi}
 
 % ---- Expediente / colofão ---------------------------------------------------
 \newcommand{\revistaColofao}{%
