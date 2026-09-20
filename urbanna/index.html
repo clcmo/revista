@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Revista</title>
+  <title>urbanna em revista</title>
+    <link rel="stylesheet" href="preview.css">
   <style>
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f4f1ea; color: #222; }
+      body { margin: 0; font-family: "Work Sans", system-ui, sans-serif; background: #f4f1ea; color: #222; }
     header { padding: 1rem 1.5rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between; }
-    a.botao { background: #1b4f72; color: #fff; padding: .5rem 1rem; border-radius: .4rem; text-decoration: none; }
-    iframe { width: 100%; height: calc(100vh - 4.5rem); border: 0; }
+      nav { display: flex; gap: .6rem; flex-wrap: wrap; }
+      a.botao { background: #b4492f; color: #fff; padding: .65rem 1rem; border-radius: .2rem; text-decoration: none; font-weight: 700; }
+      a.secundario { background: #20252b; }
+      iframe { display: block; width: 100%; height: calc(100vh - 6.5rem); min-height: 620px; border: 0; background: #fff; }
   </style>
 </head>
 <body>
   <header>
-    <strong>Edição mais recente</strong>
-    <a class="botao" href="revista.pdf" download>Baixar PDF</a>
+    <strong>urbanna em revista</strong>
+    <nav aria-label="Ações da edição">
+      <a class="botao" href="revista.pdf" target="_blank" rel="noopener">Visualizar PDF</a>
+      <a class="botao secundario" href="revista.pdf" download>Baixar PDF</a>
+      <a class="botao secundario" href="preview.html">Ver resumo</a>
+    </nav>
   </header>
   <iframe src="revista.pdf" title="Revista em PDF"></iframe>
 </body>
