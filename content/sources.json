@@ -1,5 +1,24 @@
 {
   "max_artigos": 10,
-  "feeds": [],
-  "apis": []
+  "feeds": [
+    {
+      "url": "https://ourbanna.com/feed/",
+      "secao": "Ourbanna"
+    }
+  ],
+  "apis": [
+    {
+      "url": "https://ourbanna.com/wp-json/wp/v2/posts?per_page=10&_embed=1",
+      "items_path": "",
+      "secao": "Ourbanna",
+      "fields": {
+        "title": "title.rendered",
+        "url": "link",
+        "summary": "excerpt.rendered",
+        "content": "content.rendered",
+        "author": "_embedded.author.0.name",
+        "image": "jetpack_featured_media_url"
+      }
+    }
+  ]
 }

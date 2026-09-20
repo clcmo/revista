@@ -62,10 +62,14 @@ def html_to_text(value):
 
 
 def field(item, path):
+    if not path:
+        return item
     value = item
     for part in path.split("."):
         if isinstance(value, dict):
             value = value.get(part)
+        elif isinstance(value, list) and part.isdigit():
+            value = value[int(part)] if int(part) < len(value) else ""
         else:
             return ""
     return value or ""
@@ -147,13 +151,16 @@ def api_items(source):
 
 
 def page_data(item):
+    content = item["content"]
+    image = item["image"]
+    if content:
+        return html_to_text(content), image
     if not item["url"]:
-        return item["content"], item["image"]
+        return "", image
     body, content_type = request(item["url"])
     if "html" not in content_type:
-        return item["content"], item["image"]
+        return "", image
     decoded = body.decode("utf-8", errors="replace")
-    image = item["image"]
     if not image:
         match = re.search(
             r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]+content=["\']([^"\']+)',
@@ -205,10 +212,16 @@ def write_article(item, index):
 def main():
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     imported = []
-    for source in config.get("feeds", []):
-        imported.extend(rss_items(source))
     for source in config.get("apis", []):
         imported.extend(api_items(source))
+    for source in config.get("feeds", []):
+        imported.extend(rss_items(source))
+    unique = {}
+    for item in imported:
+        key = item["url"] or item["title"]
+        if key and key not in unique:
+            unique[key] = item
+    imported = list(unique.values())
     limit = int(config.get("max_artigos", len(imported)))
     for old in ARTICLES.glob("auto-*.md"):
         old.unlink()
