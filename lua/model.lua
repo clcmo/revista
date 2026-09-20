@@ -36,7 +36,10 @@ function M.carregar()
 
   local nomes = {}
   for nome in lfs.dir("content/artigos") do
-    if nome:match("%.md$") then nomes[#nomes + 1] = nome end
+    local caminho = "content/artigos/" .. nome
+    if nome:match("%.md$") and M.existe(caminho) then
+      nomes[#nomes + 1] = nome
+    end
   end
   table.sort(nomes)
 

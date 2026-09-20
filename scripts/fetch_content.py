@@ -305,6 +305,13 @@ def write_article(item, index):
     (ARTICLES / f"{name}.md").write_text("\n".join(metadata), encoding="utf-8")
 
 
+def limpar_cache():
+    CACHE.mkdir(parents=True, exist_ok=True)
+    for item in CACHE.iterdir():
+        if item.name != ".gitkeep" and item.is_file():
+            item.unlink()
+
+
 def main():
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     imported = []
@@ -331,9 +338,9 @@ def main():
             unique[key] = item
     imported = list(unique.values())
     limit = int(config.get("max_artigos", len(imported)))
+    limpar_cache()
     for old in ARTICLES.glob("auto-*.md"):
         old.unlink()
-    CACHE.mkdir(parents=True, exist_ok=True)
     ARTICLES.mkdir(parents=True, exist_ok=True)
     for index, item in enumerate(imported[:limit], 1):
         write_article(item, index)
