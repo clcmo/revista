@@ -68,10 +68,12 @@
     }%
     \node[anchor=north west,text=white,inner sep=0pt] at ([xshift=2cm,yshift=-2.4cm]current page.north west)
       {\sffamily\bfseries\large\MakeUppercase{nº\,\RevNumero}\quad\textbullet\quad\RevData};
+    \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
+      at ([xshift=2cm,yshift=-4.2cm]current page.north west)
+      {\sffamily\bfseries\fontsize{38}{42}\selectfont\RevTitulo};
     \node[anchor=south west,text=white,inner sep=0pt,text width=15cm,align=left]
       at ([xshift=2cm,yshift=3.2cm]current page.south west)
-      {{\sffamily\bfseries\fontsize{54}{58}\selectfont\RevTitulo\\[2.5ex]}%
-       {\large\itshape\RevLema}};
+      {\large\itshape\RevLema};
     \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
       at ([xshift=2cm,yshift=-7.5cm]current page.north west)
       {{\sffamily\bfseries\small\MakeUppercase{\RevCapaSecao}\\[.8ex]}%
