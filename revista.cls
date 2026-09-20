@@ -86,7 +86,7 @@
       at ([xshift=2cm,yshift=3.2cm]current page.south west)
       {\large\itshape\RevLema};
     \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
-      at ([xshift=2cm,yshift=-7.5cm]current page.north west)
+      at ([xshift=2cm,yshift=-11cm]current page.north west)
       {{\sffamily\bfseries\small\MakeUppercase{\RevCapaSecao}\\[.8ex]}%
        {\sffamily\bfseries\fontsize{25}{29}\selectfont\RevCapaTitulo\\[.8ex]}%
        {\large\RevCapaChamada}};
