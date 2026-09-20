@@ -39,11 +39,11 @@ jobs:
           cp site/index.html public/index.html
           cp site/preview.html public/preview.html
           cp site/preview.css public/preview.css
-          cp site/ourbanna-theme.css public/ourbanna-theme.css
+          cp site/urbanna-theme.css public/urbanna-theme.css
           cp -R assets public/assets
 
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ourbanna-preview
+          name: urbanna-preview
           path: public
