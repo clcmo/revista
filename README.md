@@ -45,10 +45,56 @@ Artigos da mesma seção devem ter `ordem` consecutiva (o sumário agrupa quando
 
 Provedores: Openverse (sem chave) ou Unsplash (defina `UNSPLASH_ACCESS_KEY`).
 
+## Importar conteúdo de sites
+
+Edite `content/sources.json` para informar feeds RSS/Atom e APIs JSON. Os
+artigos importados recebem o prefixo `auto-`; artigos escritos à mão não são
+alterados.
+
+Exemplo de feed:
+
+```json
+{
+   "max_artigos": 10,
+   "feeds": [
+      {"url": "https://exemplo.org/feed.xml", "secao": "Notícias"}
+   ],
+   "apis": []
+}
+```
+
+Exemplo de API JSON:
+
+```json
+{
+   "max_artigos": 10,
+   "feeds": [],
+   "apis": [{
+      "url": "https://exemplo.org/api/posts",
+      "items_path": "items",
+      "secao": "Atualizações",
+      "fields": {
+         "title": "title",
+         "url": "url",
+         "summary": "excerpt",
+         "content": "body",
+         "author": "author.name",
+         "image": "image.url"
+      }
+   }]
+}
+```
+
+O script consulta o RSS/API, busca a página original quando necessário, extrai
+texto e `og:image`/`twitter:image`, baixa a imagem para `assets/cache/` e cria
+os Markdown antes da compilação. Para APIs autenticadas, use um endpoint
+somente leitura ou adapte os headers sem colocar tokens no repositório.
+
 ## Compilar localmente
 
 ```bash
 latexmk -lualatex main.tex        # ou: lualatex main.tex (duas vezes)
+   python3 scripts/fetch_content.py  # importa RSS/APIs configurados
 python3 scripts/fetch_images.py   # opcional: baixa imagens do orçamento
 ```
 

@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+"""Importa artigos de feeds RSS/Atom e APIs JSON para content/artigos."""
+import html
+import json
+import re
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+CONFIG = ROOT / "content" / "sources.json"
+ARTICLES = ROOT / "content" / "artigos"
+CACHE = ROOT / "assets" / "cache"
+USER_AGENT = "revista-content-importer/1.0"
+
+
+def request(url):
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=30) as response:
+        return response.read(), response.headers.get_content_type()
+
+
+def text(value):
+    return re.sub(r"\s+", " ", html.unescape(str(value or ""))).strip()
+
+
+class TextExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.skip = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style", "noscript", "svg"}:
+            self.skip += 1
+        elif tag in {"p", "br", "li", "h1", "h2", "h3", "blockquote"}:
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style", "noscript", "svg"} and self.skip:
+            self.skip -= 1
+        elif tag in {"p", "li", "h1", "h2", "h3", "blockquote"}:
+            self.parts.append("\n")
+
+    def handle_data(self, data):
+        if not self.skip:
+            self.parts.append(data)
+
+    def result(self):
+        lines = [text(line) for line in "".join(self.parts).splitlines()]
+        return "\n\n".join(line for line in lines if line)
+
+
+def html_to_text(value):
+    parser = TextExtractor()
+    parser.feed(value or "")
+    return parser.result()
+
+
+def field(item, path):
+    value = item
+    for part in path.split("."):
+        if isinstance(value, dict):
+            value = value.get(part)
+        else:
+            return ""
+    return value or ""
+
+
+def first(*values):
+    return next((text(value) for value in values if value), "")
+
+
+def slug(value):
+    value = text(value).lower()
+    value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
+    return value[:70] or "artigo"
+
+
+def xml_value(item, names):
+    for child in item.iter():
+        name = child.tag.rsplit("}", 1)[-1]
+        if name in names and child.text:
+            return child.text
+    return ""
+
+
+def xml_link(item):
+    for child in item.iter():
+        if child.tag.rsplit("}", 1)[-1] != "link":
+            continue
+        if child.attrib.get("href"):
+            return child.attrib["href"]
+        if child.text:
+            return child.text
+    return ""
+
+
+def xml_image(item):
+    for child in item.iter():
+        name = child.tag.rsplit("}", 1)[-1]
+        if name in {"content", "thumbnail", "enclosure"} and child.attrib.get("url"):
+            return child.attrib["url"]
+    return ""
+
+
+def rss_items(source):
+    body, _ = request(source["url"])
+    root = ET.fromstring(body)
+    items = []
+    for item in root.iter():
+        if item.tag.rsplit("}", 1)[-1] not in {"item", "entry"}:
+            continue
+        summary = xml_value(item, {"description", "summary", "subtitle"})
+        items.append({
+            "title": xml_value(item, {"title"}),
+            "url": xml_link(item),
+            "summary": summary,
+            "content": xml_value(item, {"encoded", "content"}) or summary,
+            "author": xml_value(item, {"creator", "author"}),
+            "image": xml_image(item),
+            "section": source.get("secao", "Importados"),
+        })
+    return items
+
+
+def api_items(source):
+    body, _ = request(source["url"])
+    data = json.loads(body)
+    items = field(data, source.get("items_path", "items"))
+    if not isinstance(items, list):
+        raise ValueError(f"items_path não aponta para uma lista: {source['url']}")
+    fields = source.get("fields", {})
+    return [{
+        "title": field(item, fields.get("title", "title")),
+        "url": field(item, fields.get("url", "url")),
+        "summary": field(item, fields.get("summary", "summary")),
+        "content": field(item, fields.get("content", "content")),
+        "author": field(item, fields.get("author", "author")),
+        "image": field(item, fields.get("image", "image")),
+        "section": source.get("secao", "Importados"),
+    } for item in items]
+
+
+def page_data(item):
+    if not item["url"]:
+        return item["content"], item["image"]
+    body, content_type = request(item["url"])
+    if "html" not in content_type:
+        return item["content"], item["image"]
+    decoded = body.decode("utf-8", errors="replace")
+    image = item["image"]
+    if not image:
+        match = re.search(
+            r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]+content=["\']([^"\']+)',
+            decoded,
+            re.I,
+        )
+        image = match.group(1) if match else ""
+    if image:
+        image = urllib.parse.urljoin(item["url"], image)
+    return html_to_text(decoded), image
+
+
+def download_image(url, name):
+    if not url or urllib.parse.urlparse(url).scheme not in {"http", "https"}:
+        return ""
+    path = urllib.parse.urlparse(url).path
+    suffix = Path(path).suffix.lower()
+    if suffix not in {".jpg", ".jpeg", ".png", ".webp"}:
+        suffix = ".jpg"
+    destination = CACHE / f"{name}{suffix}"
+    if not destination.exists():
+        body, _ = request(url)
+        destination.write_bytes(body)
+    return str(destination.relative_to(ROOT))
+
+
+def write_article(item, index):
+    title = first(item["title"], "Artigo importado")
+    name = f"auto-{index:02d}-{slug(title)}"
+    body, image_url = page_data(item)
+    image = download_image(image_url, name)
+    link = first(item["url"])
+    if link:
+        body = f"Fonte: [{link}]({link})\n\n{body}"
+    metadata = [
+        "---",
+        f"titulo: {title}",
+        f"autor: {first(item['author'], 'Fonte externa')}",
+        f"secao: {first(item['section'], 'Importados')}",
+        f"ordem: {index + 100}",
+        f"resumo: {first(item['summary'])}",
+    ]
+    if image:
+        metadata.append(f"imagem_arquivo: {image}")
+    metadata += ["---", body or "Conteúdo não informado.", ""]
+    (ARTICLES / f"{name}.md").write_text("\n".join(metadata), encoding="utf-8")
+
+
+def main():
+    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    imported = []
+    for source in config.get("feeds", []):
+        imported.extend(rss_items(source))
+    for source in config.get("apis", []):
+        imported.extend(api_items(source))
+    limit = int(config.get("max_artigos", len(imported)))
+    for old in ARTICLES.glob("auto-*.md"):
+        old.unlink()
+    CACHE.mkdir(parents=True, exist_ok=True)
+    ARTICLES.mkdir(parents=True, exist_ok=True)
+    for index, item in enumerate(imported[:limit], 1):
+        write_article(item, index)
+    print(f"ok: {min(len(imported), limit)} artigo(s) importado(s)")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, ET.ParseError, ValueError, urllib.error.URLError) as error:
+        print(f"erro ao importar conteúdo: {error}", file=sys.stderr)
+        sys.exit(1)

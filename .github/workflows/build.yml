@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Import content from RSS and APIs
+        run: python3 scripts/fetch_content.py
+
       - name: Compile PDF
         uses: xu-cheng/latex-action@v3
         with:
