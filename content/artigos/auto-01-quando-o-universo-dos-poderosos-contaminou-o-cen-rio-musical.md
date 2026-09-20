@@ -1,7 +1,7 @@
 ---
 titulo: Quando o universo dos poderosos contaminou o cenário musical
 autor: Camila L. Oliveira
-secao: urbanna
+secao: Cronicas, Fala Milla, Dinheiro, Madame Satã, Poder, Vorcaro
 ordem: 101
 resumo: De um dos símbolos da noite underground de São Paulo ao “Vorcaroween”: quando a música deixa de ser apenas trilha sonora e passa a fazer parte da arquitetura do poder.
 data_publicacao: 2026-09-14

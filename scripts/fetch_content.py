@@ -159,6 +159,20 @@ def first(*values):
     return next((text(value) for value in values if value), "")
 
 
+def publication_categories(item, fallback):
+    terms = field(item, "_embedded.wp:term")
+    categories = []
+    if isinstance(terms, list):
+        for group in terms:
+            if isinstance(group, list):
+                categories.extend(
+                    text(term.get("name"))
+                    for term in group
+                    if isinstance(term, dict) and term.get("name")
+                )
+    return ", ".join(dict.fromkeys(categories)) or fallback
+
+
 def slug(value):
     value = text(value).lower()
     value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
@@ -200,6 +214,11 @@ def rss_items(source):
         if item.tag.rsplit("}", 1)[-1] not in {"item", "entry"}:
             continue
         summary = xml_value(item, {"description", "summary", "subtitle"})
+        categories = [
+            text(child.text)
+            for child in item.iter()
+            if child.tag.rsplit("}", 1)[-1] == "category" and child.text
+        ]
         items.append({
             "title": xml_value(item, {"title"}),
             "url": xml_link(item),
@@ -208,7 +227,7 @@ def rss_items(source):
             "author": xml_value(item, {"creator", "author"}),
             "image": xml_image(item),
             "date": xml_value(item, {"pubDate", "published", "updated"}),
-            "section": source.get("secao", "Importados"),
+            "section": ", ".join(dict.fromkeys(categories)) or source.get("secao", "Importados"),
         })
     return items
 
@@ -228,7 +247,7 @@ def api_items(source):
         "author": field(item, fields.get("author", "author")),
         "image": field(item, fields.get("image", "image")),
         "date": field(item, fields.get("date", "date")),
-        "section": source.get("secao", "Importados"),
+        "section": publication_categories(item, source.get("secao", "Importados")),
     } for item in items]
 
 

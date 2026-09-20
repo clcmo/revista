@@ -1,7 +1,7 @@
 ---
 titulo: Eurovision 2026: Bulgária campeã (para a surpresa de muitos)
 autor: Camila L. Oliveira
-secao: urbanna
+secao: Fala Milla, Noticias, Bulgária, Eurovision, Finlândia, Israel, Italia, Romênia, Suécia
 ordem: 107
 resumo: Com um pacote que inclui até meme, a Bulgária foi catapultada à sua inédita vitória. Mas a 70ª edição foi, em mais de um sentido, histórica além do pódio.
 data_publicacao: 2026-05-17

@@ -1,7 +1,7 @@
 ---
 titulo: Cantora Sandra, de “Maria Magdalena”, vem ao Chile em novembro
 autor: Camila L. Oliveira
-secao: urbanna
+secao: Noticias, Shows, Anos 80, Maria Magdalena, Sandra, Sandra Cretu
 ordem: 106
 resumo: Cantora de “Maria Magdalena” irá cantar no Chile, em novembro
 data_publicacao: 2026-08-13

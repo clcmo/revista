@@ -1,7 +1,7 @@
 ---
 titulo: 800 mil euros: a cifra perdida pela EBU ao subestimar as cinco saídas do Eurovision
 autor: Camila L. Oliveira
-secao: urbanna
+secao: Noticias, Eslovênia, Espanha, Eurovision, Finlândia, Irlanda, Islândia, Israel, Países Baixos, Palestina
 ordem: 109
 resumo: Christer Bjorkman é o primeiro todo poderoso do festival a admitir que foi tudo pelos ares: a saída dos cinco já causou impactos significativos ao Eurovision.
 data_publicacao: 2026-05-04

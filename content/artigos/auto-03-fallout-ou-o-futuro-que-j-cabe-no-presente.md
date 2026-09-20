@@ -1,7 +1,7 @@
 ---
 titulo: Fallout, ou o futuro que já cabe no presente
 autor: Camila L. Oliveira
-secao: urbanna
+secao: Tips, Cyber, Fallout, Futuro, Jogo, Mudanças Climaticas, Serie, TV
 ordem: 103
 resumo: A série Fallout revela reflexões sobre decisões humanas que levam ao colapso social e ambiental atual.
 data_publicacao: 2026-08-24
