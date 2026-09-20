@@ -312,6 +312,13 @@ def limpar_cache():
             item.unlink()
 
 
+def limpar_artigos_importados():
+    ARTICLES.mkdir(parents=True, exist_ok=True)
+    for item in ARTICLES.iterdir():
+        if item.is_file() and item.suffix == ".md" and item.name != "01-editorial.md":
+            item.unlink()
+
+
 def main():
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     imported = []
@@ -339,8 +346,7 @@ def main():
     imported = list(unique.values())
     limit = int(config.get("max_artigos", len(imported)))
     limpar_cache()
-    for old in ARTICLES.glob("auto-*.md"):
-        old.unlink()
+    limpar_artigos_importados()
     ARTICLES.mkdir(parents=True, exist_ok=True)
     for index, item in enumerate(imported[:limit], 1):
         write_article(item, index)
