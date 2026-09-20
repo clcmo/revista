@@ -8,7 +8,7 @@
 \RequireLuaTeX
 \RequirePackage[brazilian]{babel}
 \RequirePackage{fontspec}
-\setmainfont{TeX Gyre Pagella}
+\setmainfont{TeX Gyre Heros}
 \setsansfont{TeX Gyre Heros}
 \setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]
 \RequirePackage[a4paper,inner=2cm,outer=2cm,top=2.4cm,bottom=2.4cm]{geometry}
@@ -34,8 +34,8 @@
 \clearpairofpagestyles
 \cfoot{\sffamily\footnotesize\color{revcor}\RevTitulo\ \textbullet\ nº\,\RevNumero\ \textbullet\ \pagemark}
 \setlength{\columnsep}{1.4em}
-\setlength{\parindent}{1.2em}
-\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.45em}
 \setlength{\multicolsep}{6pt}
 
 \newcommand{\intertitulo}[1]{\par\vspace{.7\baselineskip}%
@@ -94,7 +94,7 @@
   \addcontentsline{toc}{subsection}{\ArtTitulo}%
   {\noindent\sffamily\bfseries\small\color{revcor}\MakeUppercase{\ArtSecao}\par}%
   \vspace{.5ex}%
-  {\raggedright\sffamily\bfseries\fontsize{28}{31}\selectfont\ArtTitulo\par}%
+  {\raggedright\sffamily\bfseries\fontsize{26}{29}\selectfont\ArtTitulo\par}%
   \ifdefempty{\ArtResumo}{}{\vspace{1.2ex}{\raggedright\large\itshape\ArtResumo\par}}%
   \vspace{1.2ex}%
   {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%

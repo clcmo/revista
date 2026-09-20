@@ -1,11 +1,11 @@
 -- MODELO (dados da edição). Só dados: nenhuma lógica aqui.
 return {
   titulo      = "urbanna em revista",
-  numero      = 2,
+  numero      = 1,
   data        = "Setembro de 2026",
   lema        = "Música, cultura e poder em circulação",
 
-  cor         = nil,   -- hex sem '#', ex.: "1B4F72". nil = gerada a partir do número
+  cor         = "B4492F",   -- terracota do tema urbanna
   max_imagens = 11,    -- capa + 10 artigos automatizados
 
   capa_busca  = nil,
