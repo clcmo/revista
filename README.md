@@ -14,6 +14,20 @@ e publica o PDF numa página (GitHub Pages).
 A View nunca lê arquivos: ela usa macros (`\ArtTitulo`, `\ArtCorpo`, `\RevCor`...) que o ViewModel
 define a cada artigo. Trocar o visual = editar só `revista.cls`.
 
+Regra de ouro: o **ViewModel só entrega fatos** (`\ArtPalavras`, `\ArtDestaque`, `\ArtNovaSecao`...) e a **View decide o layout**
+(quantas colunas, se há página de abertura, como o destaque é aberto). O ViewModel nunca escreve comandos de layout.
+
+## Páginas de abertura
+
+- **Artigo com imagem:** 1 página de abertura com os metadados (seção, título, resumo, autor, data, fonte/link, tempo de leitura)
+  e a imagem juntos; o texto começa na página seguinte. A imagem preenche a altura que sobra (cortada, sem deformar).
+- **Destaque:** 2 páginas. Pág. 1 = imagem em página inteira com seção, título, autor e data sobre ela;
+  pág. 2 = resumo, ficha completa (autor, data, fonte e link) e início do texto.
+- **Artigo sem imagem:** cabeçalho e texto começam juntos.
+- O destaque também alimenta a capa (foto, título e chamada). Escolha em `content/issue.lua` com `destaque = "auto-01"`
+  (prefixo do arquivo ou posição numérica) ou com `destaque: sim` no cabeçalho de um artigo. Sem nada, vale o 1º artigo com imagem.
+- Ajuste fino na View (`revista.cls`): `\revcolunasmin` (palavras mínimas para 2 colunas).
+
 ## Escrever um artigo
 
 Crie `content/artigos/NN-nome.md`:

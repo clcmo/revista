@@ -6,13 +6,16 @@ return {
   lema        = "Música, cultura e poder em circulação",
 
   cor         = "B4492F",   -- terracota do tema urbanna
-  max_imagens = 11,    -- capa + 10 artigos automatizados
+  max_imagens = 11,    -- orçamento total; a foto do destaque na capa e no artigo conta uma vez só
+
+  -- Destaque: aberto em 2 páginas e usado na capa (foto, título e chamada vêm dele).
+  -- Aceita prefixo do arquivo ("auto-01" = post mais recente importado) ou posição (número).
+  -- Também vale `destaque: sim` no cabeçalho de um artigo. Sem nada, usa o 1º artigo com imagem.
+  destaque    = "auto-01",
 
   capa_busca  = nil,
-  capa_imagem = "assets/cache/auto-01-quando-o-universo-dos-poderosos-contaminou-o-cen-rio-musical.jpeg",
   capa_molde  = "assets/cover/capa_molde.png",
   capa_secao  = "Destaque",
-  capa_titulo = "Quando o universo dos poderosos contaminou o cenário musical",
   capa_chamada = "Quando dinheiro, música e influência passam a disputar os mesmos espaços.",
 
   expediente  = {

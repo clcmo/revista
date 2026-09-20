@@ -310,8 +310,7 @@ def write_article(item, index):
     publication_date = first(item.get("date"))
     if "T" in publication_date:
         publication_date = publication_date.split("T", 1)[0]
-    if link:
-        body = f"Fonte: [{link}]({link})\n\n{body}"
+    # A URL de origem fica só nos metadados (url_publicacao); a View a imprime na ficha.
     metadata = [
         "---",
         f"titulo: {title}",

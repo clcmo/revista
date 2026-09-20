@@ -31,7 +31,7 @@ jobs:
             dwebp "$image" -o "${image%.webp}.png"
             rm "$image"
           done
-          sed -i 's/\.webp/\.png/g' content/artigos/*.md
+          sed -i '/^imagem_arquivo:/ s/\.webp$/.png/' content/artigos/*.md
 
       - name: Generate local preview
         run: python3 scripts/build_preview.py

@@ -36,6 +36,13 @@ inline = function(s)
 end
 M.inline = inline
 
+-- URL como link clicável cujo texto pode quebrar linha (metadados da publicação).
+function M.link_url(url)
+  local alvo = url:gsub("([%%#])", "\\%1")
+  local texto = M.escapar(url):gsub("([/%-%?=&])", "%1\\allowbreak{}")
+  return "\\href{" .. alvo .. "}{" .. texto .. "}"
+end
+
 function M.converter(texto)
   texto = texto:gsub("\r\n", "\n")
   local saida, bloco, itens = {}, nil, {}

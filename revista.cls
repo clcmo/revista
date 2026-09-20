@@ -19,9 +19,6 @@
 
 % ---- Ponte com o ViewModel -------------------------------------------------
 \directlua{vm = dofile("lua/viewmodel.lua")}
-\newif\ifArtNovaSecao
-\newif\ifArtColunas
-\ArtColunastrue
 \AtBeginDocument{%
   \directlua{vm.iniciar()}%
   \definecolor{revcor}{HTML}{\RevCor}%
@@ -99,28 +96,92 @@
 \newcommand{\revistaSumario}{\tableofcontents\clearpage}
 
 % ---- Artigo ---------------------------------------------------------------
+% Decisões de layout ficam aqui (View): colunas, página de abertura, destaque em 2 páginas.
+\newcommand{\revcolunasmin}{450}   % textos abaixo disso (palavras) saem em coluna única
+\newsavebox{\rev@box}
+\newsavebox{\rev@meta}
+\newlength{\rev@w}
+\newlength{\rev@h}
+\newlength{\rev@ah}
+
+% Imagem que PREENCHE uma caixa #1 x #2 (corta as sobras, sem deformar).
+\newcommand{\imagemPreencher}[3]{%
+  \setlength{\rev@w}{#1}\setlength{\rev@h}{#2}%
+  \sbox{\rev@box}{\includegraphics[width=\rev@w]{#3}}%
+  \ifdim\ht\rev@box<\rev@h\sbox{\rev@box}{\includegraphics[height=\rev@h]{#3}}\fi
+  \begin{tikzpicture}
+    \clip (0,0) rectangle (\rev@w,\rev@h);
+    \node[inner sep=0pt,anchor=center] at (0.5\rev@w,0.5\rev@h) {\usebox{\rev@box}};
+  \end{tikzpicture}}
+
+% Corpo do texto: 1 ou 2 colunas conforme o tamanho.
+\newcommand{\revistaCorpo}{%
+  \ifnum\ArtPalavras<\revcolunasmin\relax\ArtCorpo
+  \else\begin{multicols}{2}\ArtCorpo\end{multicols}\fi}
+
+% Metadados da publicação, em blocos reutilizáveis.
+\newcommand{\revistaSecao}{%
+  {\noindent\sffamily\bfseries\small\color{revcor}\MakeUppercase{\ArtSecao}\par}}
+\newcommand{\revistaTitulo}{%
+  {\raggedright\hyphenpenalty=10000 \exhyphenpenalty=10000 \sffamily\bfseries\fontsize{26}{29}\selectfont\ArtTitulo\par}}
+\newcommand{\revistaResumo}{%
+  \ifdefempty{\ArtResumo}{}{\vspace{1.2ex}{\raggedright\large\itshape\ArtResumo\par}}}
+\newcommand{\revistaFicha}{%
+  \vspace{1.2ex}%
+  {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%
+   \ifdefempty{\ArtData}{}{\ArtData\ \textbullet\ }%
+   \ArtLeitura\,min de leitura\par}%
+  \ifdefempty{\ArtFonte}{}{\vspace{.3ex}{\raggedright\sffamily\scriptsize\ArtFonte\ifdefempty{\ArtURL}{}{\space\textbullet\space\ArtURL}\par}}%
+  \vspace{.4ex}{\color{revcor}\hrule height 1.2pt}\vspace{1.4ex}}
+\newcommand{\revistaCabecalho}{\revistaSecao\vspace{.5ex}\revistaTitulo\revistaResumo\revistaFicha}
+
+% (a) Sem imagem: cabeçalho e texto começam juntos.
+\newcommand{\revistaArtigoSemImagem}{\revistaCabecalho\revistaCorpo}
+
+% (b) Com imagem: UMA página de abertura = metadados + imagem; o texto começa na seguinte.
+\newcommand{\revistaAberturaPagina}{%
+  \sbox{\rev@meta}{\begin{minipage}{\textwidth}\revistaCabecalho\end{minipage}}%
+  \setlength{\rev@ah}{\textheight}%
+  \addtolength{\rev@ah}{-\ht\rev@meta}\addtolength{\rev@ah}{-\dp\rev@meta}%
+  \addtolength{\rev@ah}{-3\baselineskip}%  respiro + linha de crédito
+  \ifdim\rev@ah>.55\textheight\setlength{\rev@ah}{.55\textheight}\fi
+  \ifdim\rev@ah<5cm\setlength{\rev@ah}{5cm}\fi
+  \noindent\usebox{\rev@meta}\par\vspace{.5ex}%
+  \noindent\imagemPreencher{\textwidth}{\rev@ah}{\ArtImagem}\par
+  \ifdefempty{\ArtCredito}{}{\vspace{.4ex}{\sffamily\tiny\ArtCredito}\par}%
+  \clearpage
+  \revistaCorpo}
+
+% (c) Destaque: 2 páginas. Pág. 1 = imagem em página inteira com título e dados sobre ela;
+%     pág. 2 = resumo, ficha completa (autor, data, fonte, link) e início do texto.
+\newcommand{\revistaAberturaDestaque}{%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west,inner sep=0pt] at (current page.south west)
+      {\imagemPreencher{\paperwidth}{\paperheight}{\ArtImagem}};
+    \fill[black,opacity=.22] (current page.south west) rectangle ([yshift=.62\paperheight]current page.south east);
+    \fill[black,opacity=.22] (current page.south west) rectangle ([yshift=.46\paperheight]current page.south east);
+    \fill[black,opacity=.22] (current page.south west) rectangle ([yshift=.32\paperheight]current page.south east);
+    \node[anchor=south west,text=white,inner sep=0pt,text width=\textwidth,align=left]
+      at ([xshift=2cm,yshift=2.4cm]current page.south west)
+      {{\sffamily\bfseries\small\MakeUppercase{\ArtSecao}\\[1.2ex]}%
+       {\hyphenpenalty=10000 \exhyphenpenalty=10000 \sffamily\bfseries\fontsize{32}{36}\selectfont\ArtTitulo\\[1.6ex]}%
+       {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }\ArtData}};
+  \end{tikzpicture}%
+  \ifdefempty{\ArtCredito}{}{\vfill{\color{white}\sffamily\tiny\ArtCredito}}%
+  \clearpage
+  \revistaSecao\vspace{.8ex}%
+  \ifdefempty{\ArtResumo}{}{{\raggedright\LARGE\itshape\ArtResumo\par}}%
+  \revistaFicha
+  \revistaCorpo}
+
 \newcommand{\revistaArtigo}{%
   \clearpage\phantomsection
-  \ifArtNovaSecao\ifdefempty{\ArtSecao}{}{\addcontentsline{toc}{section}{\ArtSecao}}\fi
+  \ifnum\ArtNovaSecao=1 \ifdefempty{\ArtSecao}{}{\addcontentsline{toc}{section}{\ArtSecao}}\fi
   \addcontentsline{toc}{subsection}{\ArtTitulo}%
-  {\noindent\sffamily\bfseries\small\color{revcor}\MakeUppercase{\ArtSecao}\par}%
-  \vspace{.5ex}%
-  {\raggedright\sffamily\bfseries\fontsize{26}{29}\selectfont\ArtTitulo\par}%
-  \ifdefempty{\ArtResumo}{}{\vspace{1.2ex}{\raggedright\large\itshape\ArtResumo\par}}%
-  \begin{samepage}
-    \vspace{1.2ex}%
-    {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%
-     \ifdefempty{\ArtData}{}{\ArtData\ \textbullet\ }%
-     \ArtLeitura\,min de leitura\par}%
-    \ifdefempty{\ArtFonte}{}{\vspace{.3ex}{\sffamily\tiny\ArtFonte\ifdefempty{\ArtURL}{}{\space\textbullet\space\ArtURL}\par}}%
-    \vspace{.4ex}{\color{revcor}\hrule height 1.2pt}\vspace{1.4ex}%
-    \ifdefempty{\ArtImagem}{}{%
-      \begin{center}
-        \includegraphics[width=\textwidth]{\ArtImagem}\\[-.2ex]
-        \ifdefempty{\ArtCredito}{}{{\sffamily\tiny\ArtCredito}}
-      \end{center}\vspace{.6ex}}%
-  \end{samepage}%
-  \ifArtColunas\begin{multicols}{2}\ArtCorpo\end{multicols}\else\ArtCorpo\fi}
+  \ifdefempty{\ArtImagem}%
+    {\revistaArtigoSemImagem}%
+    {\ifnum\ArtDestaque=1 \revistaAberturaDestaque\else\revistaAberturaPagina\fi}}
 
 % ---- Expediente / colofão ---------------------------------------------------
 \newcommand{\revistaColofao}{%
