@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="preview.css">
   <style>
       body { margin: 0; font-family: "Work Sans", system-ui, sans-serif; background: #f4f1ea; color: #222; }
-    header { padding: 1rem 1.5rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between; }
+    header { padding: 1rem 1.5rem; }
       nav { display: flex; gap: .6rem; flex-wrap: wrap; }
       a.botao { background: #b4492f; color: #fff; padding: .65rem 1rem; border-radius: .2rem; text-decoration: none; font-weight: 700; }
       a.secundario { background: #20252b; }
-      iframe { display: block; width: 100%; height: calc(100vh - 6.5rem); min-height: 620px; border: 0; background: #fff; }
+      a.pdf-flutuante { position: fixed; top: 1rem; right: 1.5rem; z-index: 10; box-shadow: 0 .25rem .8rem #0003; }
+      iframe { display: block; width: 100%; height: calc(100vh - 4.5rem); min-height: 620px; border: 0; background: #fff; }
   </style>
 </head>
 <body>
   <header>
     <strong>urbanna em revista</strong>
     <nav aria-label="Ações da edição">
-      <a class="botao" href="revista.pdf" target="_blank" rel="noopener">Visualizar PDF</a>
+      <a class="botao pdf-flutuante" href="revista.pdf" target="_blank" rel="noopener">Visualizar PDF</a>
       <a class="botao secundario" href="revista.pdf" download>Baixar PDF</a>
       <a class="botao secundario" href="preview.html">Ver resumo</a>
     </nav>
   </header>
-  <iframe src="revista.pdf" title="Revista em PDF"></iframe>
+  <iframe src="preview.html" title="Resumo da urbanna em revista"></iframe>
 </body>
 </html>
