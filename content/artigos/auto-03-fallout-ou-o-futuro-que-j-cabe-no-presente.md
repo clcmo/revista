@@ -1,9 +1,12 @@
 ---
 titulo: Fallout, ou o futuro que já cabe no presente
 autor: Camila L. Oliveira
-secao: Ourbanna
+secao: urbanna
 ordem: 103
-resumo: <p>A série Fallout revela reflexões sobre decisões humanas que levam ao colapso social e ambiental atual.</p>
+resumo: A série Fallout revela reflexões sobre decisões humanas que levam ao colapso social e ambiental atual.
+data_publicacao: 2026-08-24
+fonte: Ourbanna
+url_publicacao: https://ourbanna.com/tips/fallout-ou-o-futuro-que-ja-cabe-no-presente/
 imagem_arquivo: assets/cache/auto-03-fallout-ou-o-futuro-que-j-cabe-no-presente.jpg
 ---
 Fonte: [https://ourbanna.com/tips/fallout-ou-o-futuro-que-ja-cabe-no-presente/](https://ourbanna.com/tips/fallout-ou-o-futuro-que-ja-cabe-no-presente/)
@@ -11,6 +14,8 @@ Fonte: [https://ourbanna.com/tips/fallout-ou-o-futuro-que-ja-cabe-no-presente/](
 Atenção: eu nunca joguei Fallout. Confesso isso de cara porque não quero fingir que teria uma intimidade com os mapas, com os diálogos, com as escolhas que cada jogador carrega feito cicatriz — e não tenho. Mas assisti à série, e o que me pegou não foi a violência, nem os mutantes, nem o verniz pulp dos anos 1950 espalhado sobre um mundo em ruínas. O que me pegou foi o reconhecimento. Uma sensação estranha de já ter estado ali — não naquele deserto irradiado, mas em alguma versão dele que eu já tinha visto antes, em outro lugar, com outro nome.
 
 A série, baseada no famoso jogo, se passa num futuro alternativo em que os Estados Unidos pararam de evoluir esteticamente nos anos 1950 — geladeiras com abas cromadas, propaganda otimista, o sonho da energia atômica resolvendo tudo — mas a tecnologia seguiu andando por baixo desse verniz retrô. Em 2077, esse mundo estoura numa guerra nuclear. O que sobra é o ermo: radiação, criaturas mutantes, comunidades se reorganizando sobre os escombros de uma promessa que nunca foi cumprida. E no centro disso está a Vault-Tec, a corporação que vendia abrigos “seguros” para a população — só que, por trás da propaganda, transformava esses abrigos em experimentos sociais, em cobaias humanas. O apocalipse, ali, não é só um evento. É um produto. Alguém lucrou com ele antes mesmo de ele acontecer.
+
+>
 
 Guerra, ganância, degradação ambiental — em todas, escolhas, não fatalidades.
 

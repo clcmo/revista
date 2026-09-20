@@ -1,9 +1,12 @@
 ---
 titulo: Uma corrida pela vida: Lito Sousa, do canal “Aviões e Músicas”, enfrenta doença rara
 autor: danskbarion
-secao: Ourbanna
+secao: urbanna
 ordem: 104
-resumo: <p>Lito Sousa, piloto e criador do canal “Aviões e Músicas”, enfrenta doenças graves, mobilizando apoio.</p>
+resumo: Lito Sousa, piloto e criador do canal “Aviões e Músicas”, enfrenta doenças graves, mobilizando apoio.
+data_publicacao: 2026-08-24
+fonte: Ourbanna
+url_publicacao: https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/
 imagem_arquivo: assets/cache/auto-04-uma-corrida-pela-vida-lito-sousa-do-canal-avi-es-e-m-sicas-enfrenta-do.webp
 ---
 Fonte: [https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/](https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/)
@@ -20,11 +23,11 @@ Inicialmente, os médicos suspeitaram de uma inflamação ou encefalite no siste
 
 Além da atuação como criador de conteúdo, ele desenvolveu uma metodologia voltada a pessoas que têm medo de voar e atua na formação de profissionais do setor, como pilotos, comissários, mecânicos e engenheiros.
 
-Desde que a situação de saúde de Lito se tornou pública, amigos, familiares e seguidores também passaram a se mobilizar para tentar encontrar estudos científicos e tratamentos experimentais relacionados à doença. No último final de semana, foi divulgado um vídeo sobre uma pesquisa encontrada, em Harvard, para gerar um possível tratamento da doença. Ele já se manifestou que quer ser um dos pacientes deste tratamento, mas ainda não há vagas abertas para novos pacientes nos estudos procurados por sua equipe. O governo federal, através do Ministério da Saúde, já está correndo contra o relógio e buscando encaminhar Lito para uma destas vagas.
+Desde que a situação de saúde de Lito se tornou pública, amigos, familiares e seguidores também passaram a se mobilizar para tentar encontrar **[estudos científicos e tratamentos experimentais relacionados à doença](https://oglobo.globo.com/saude/noticia/2026/08/24/lito-sousa-como-agem-os-dois-tratamentos-experimentais-para-doenca-de-creutzfeldt-jakob.ghtml)**. No último final de semana, foi divulgado um vídeo sobre uma pesquisa encontrada, em Harvard, para gerar um possível tratamento da doença. Ele já se manifestou que quer ser um dos pacientes deste tratamento, mas ainda não há vagas abertas para novos pacientes nos estudos procurados por sua equipe. O governo federal, através do Ministério da Saúde, **[já está correndo contra o relógio e buscando encaminhar Lito para uma destas vagas](https://www.correiobraziliense.com.br/brasil/2026/08/7485637-padilha-diz-ministerio-da-saude-procura-ajuda-a-lito-sousa.html).**
 
 https://www.instagram.com/reels/DcZBm3EjMrT
 
-Sobre a Doença
+## Sobre a Doença
 
 A doença de Creutzfeldt-Jakob é uma doença neurodegenerativa progressiva, ou seja, que mata as células do sistema nervoso e piora com o tempo. A doença pode provocar perda de memória, tremores e dificuldades de movimento.
 
@@ -38,7 +41,7 @@ A forma mais comum é a esporádica, que ocorre quando a doença surge sem uma c
 
 Não há chance de sobrevivência a longo prazo. Segundo o Ministério da Saúde, 90% das pessoas morrem em um ano após o diagnóstico. “Atualmente, é recomendado oferecer suporte terapêutico e realizar o controle das complicações”, diz o site do órgão.
 
-Sobre o canal
+## Sobre o canal
 
 Sobre o “Aviões e Músicas”, Lito tomou uma decisão envolvendo seu canal nesse último domingo (23): A partir desse dia, amigos escolhidos por ele irão postar vídeos para que o perfil não seja “esquecido pelo algoritmo”. Sérgio Sacani, do canal “Space Today”, foi o primeiro youtuber a aparecer no perfil.
 

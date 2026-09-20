@@ -95,11 +95,14 @@
   {\raggedright\sffamily\bfseries\fontsize{28}{31}\selectfont\ArtTitulo\par}%
   \ifdefempty{\ArtResumo}{}{\vspace{1.2ex}{\raggedright\large\itshape\ArtResumo\par}}%
   \vspace{1.2ex}%
-  {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }\ArtLeitura\,min de leitura\par}%
+  {\sffamily\small\ifdefempty{\ArtAutor}{}{\textbf{\ArtAutor}\ \textbullet\ }%
+   \ifdefempty{\ArtData}{}{\ArtData\ \textbullet\ }%
+   \ArtLeitura\,min de leitura\par}%
+  \ifdefempty{\ArtFonte}{}{\vspace{.3ex}{\sffamily\tiny\ArtFonte\ifdefempty{\ArtURL}{}{\space\textbullet\space\ArtURL}\par}}%
   \vspace{.4ex}{\color{revcor}\hrule height 1.2pt}\vspace{1.4ex}%
   \ifdefempty{\ArtImagem}{}{%
     \begin{center}
-      \includegraphics[width=\textwidth,height=.30\textheight,keepaspectratio]{\ArtImagem}\\[-.2ex]
+      \includegraphics[width=\textwidth]{\ArtImagem}\\[-.2ex]
       \ifdefempty{\ArtCredito}{}{{\sffamily\tiny\ArtCredito}}
     \end{center}\vspace{.6ex}}%
   \begin{multicols}{2}\ArtCorpo\end{multicols}}

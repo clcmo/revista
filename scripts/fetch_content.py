@@ -73,6 +73,74 @@ def html_to_text(value):
     return parser.result()
 
 
+class MarkdownExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.skip = 0
+        self.links = []
+        self.list_stack = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag in {"script", "style", "noscript", "svg"}:
+            self.skip += 1
+        elif tag in {"h1", "h2", "h3"}:
+            self.parts.append("\n\n" + "#" * int(tag[1]) + " ")
+        elif tag == "p":
+            self.parts.append("\n\n")
+        elif tag in {"strong", "b"}:
+            self.parts.append("**")
+        elif tag in {"em", "i"}:
+            self.parts.append("*")
+        elif tag == "a":
+            self.links.append(attrs.get("href", ""))
+            self.parts.append("[")
+        elif tag in {"ul", "ol"}:
+            self.list_stack.append(tag)
+            self.parts.append("\n\n")
+        elif tag == "li":
+            marker = "1." if self.list_stack and self.list_stack[-1] == "ol" else "-"
+            self.parts.append(f"\n{marker} ")
+        elif tag == "blockquote":
+            self.parts.append("\n\n> ")
+        elif tag == "br":
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style", "noscript", "svg"} and self.skip:
+            self.skip -= 1
+        elif tag in {"strong", "b"}:
+            self.parts.append("**")
+        elif tag in {"em", "i"}:
+            self.parts.append("*")
+        elif tag == "a":
+            url = self.links.pop() if self.links else ""
+            self.parts.append(f"]({url})" if url else "]")
+        elif tag in {"ul", "ol"} and self.list_stack:
+            self.list_stack.pop()
+        elif tag in {"h1", "h2", "h3", "p", "li", "blockquote"}:
+            self.parts.append("\n")
+
+    def handle_data(self, data):
+        if not self.skip:
+            self.parts.append(html.unescape(data))
+
+    def result(self):
+        value = "".join(self.parts)
+        value = re.sub(r"[ \t]+", " ", value)
+        value = re.sub(r"[ \t]+\n", "\n", value)
+        value = re.sub(r"\n[ \t]+", "\n", value)
+        value = re.sub(r"\n{3,}", "\n\n", value)
+        return value.strip()
+
+
+def html_to_markdown(value):
+    parser = MarkdownExtractor()
+    parser.feed(value or "")
+    return parser.result()
+
+
 def field(item, path):
     if not path:
         return item
@@ -139,6 +207,7 @@ def rss_items(source):
             "content": xml_value(item, {"encoded", "content"}) or summary,
             "author": xml_value(item, {"creator", "author"}),
             "image": xml_image(item),
+            "date": xml_value(item, {"pubDate", "published", "updated"}),
             "section": source.get("secao", "Importados"),
         })
     return items
@@ -158,6 +227,7 @@ def api_items(source):
         "content": field(item, fields.get("content", "content")),
         "author": field(item, fields.get("author", "author")),
         "image": field(item, fields.get("image", "image")),
+        "date": field(item, fields.get("date", "date")),
         "section": source.get("secao", "Importados"),
     } for item in items]
 
@@ -166,7 +236,7 @@ def page_data(item):
     content = item["content"]
     image = item["image"]
     if content:
-        return html_to_text(content), image
+        return html_to_markdown(content), image
     if not item["url"]:
         return "", image
     try:
@@ -186,7 +256,7 @@ def page_data(item):
         image = match.group(1) if match else ""
     if image:
         image = urllib.parse.urljoin(item["url"], image)
-    return html_to_text(decoded), image
+    return html_to_markdown(decoded), image
 
 
 def download_image(url, name):
@@ -213,6 +283,9 @@ def write_article(item, index):
     body, image_url = page_data(item)
     image = download_image(image_url, name)
     link = first(item["url"])
+    publication_date = first(item.get("date"))
+    if "T" in publication_date:
+        publication_date = publication_date.split("T", 1)[0]
     if link:
         body = f"Fonte: [{link}]({link})\n\n{body}"
     metadata = [
@@ -221,7 +294,10 @@ def write_article(item, index):
         f"autor: {first(item['author'], 'Fonte externa')}",
         f"secao: {first(item['section'], 'Importados')}",
         f"ordem: {index + 100}",
-        f"resumo: {first(item['summary'])}",
+        f"resumo: {html_to_text(item['summary'])}",
+        f"data_publicacao: {publication_date}",
+        "fonte: Ourbanna",
+        f"url_publicacao: {link}",
     ]
     if image:
         metadata.append(f"imagem_arquivo: {image}")
