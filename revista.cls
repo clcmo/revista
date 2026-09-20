@@ -69,11 +69,19 @@
       \end{scope}
       \fill[black,opacity=.38] (current page.south west) rectangle (current page.north east);
     }%
+    \ifdefempty{\RevCapaMolde}{}{%
+      \begin{scope}
+        \clip (current page.south west) rectangle (current page.north east);
+        \node[inner sep=0pt] at (current page.center)
+          {\includegraphics[height=\paperheight]{\RevCapaMolde}};
+      \end{scope}}
     \node[anchor=north west,text=white,inner sep=0pt] at ([xshift=2cm,yshift=-2.4cm]current page.north west)
       {\sffamily\bfseries\large\MakeUppercase{nº\,\RevNumero}\quad\textbullet\quad\RevData};
-    \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
-      at ([xshift=2cm,yshift=-4.2cm]current page.north west)
-      {\sffamily\bfseries\fontsize{38}{42}\selectfont\RevTitulo};
+    \ifdefempty{\RevCapaMolde}{%
+      \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
+        at ([xshift=2cm,yshift=-4.2cm]current page.north west)
+        {\sffamily\bfseries\fontsize{38}{42}\selectfont\RevTitulo};
+    }{}%
     \node[anchor=south west,text=white,inner sep=0pt,text width=15cm,align=left]
       at ([xshift=2cm,yshift=3.2cm]current page.south west)
       {\large\itshape\RevLema};
