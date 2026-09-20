@@ -1,4 +1,4 @@
-name: Build and publish revista
+name: Build revista urbanna (test)
 
 on:
   push:
@@ -7,11 +7,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: build-urbanna-test
   cancel-in-progress: true
 
 jobs:
@@ -23,6 +21,9 @@ jobs:
 
       - name: Import content from RSS and APIs
         run: python3 scripts/fetch_content.py
+
+      - name: Generate local preview
+        run: python3 scripts/build_preview.py
 
       - name: Compile PDF
         uses: xu-cheng/latex-action@v3
@@ -36,19 +37,10 @@ jobs:
           mkdir -p public
           cp main.pdf public/revista.pdf
           cp site/index.html public/index.html
+          cp site/preview.html public/preview.html
+          cp -R assets public/assets
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}/urbanna
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
