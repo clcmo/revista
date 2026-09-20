@@ -4,6 +4,7 @@ import html
 import json
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -16,12 +17,23 @@ CONFIG = ROOT / "content" / "sources.json"
 ARTICLES = ROOT / "content" / "artigos"
 CACHE = ROOT / "assets" / "cache"
 USER_AGENT = "revista-content-importer/1.0"
+REQUEST_ATTEMPTS = 3
 
 
 def request(url):
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as response:
-        return response.read(), response.headers.get_content_type()
+    last_error = None
+    for attempt in range(REQUEST_ATTEMPTS):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                return response.read(), response.headers.get_content_type()
+        except (urllib.error.URLError, TimeoutError) as error:
+            last_error = error
+            if attempt + 1 < REQUEST_ATTEMPTS:
+                delay = 2 ** attempt
+                print(f"aviso: falha de rede em {url}; nova tentativa em {delay}s", file=sys.stderr)
+                time.sleep(delay)
+    raise last_error
 
 
 def text(value):
@@ -157,7 +169,11 @@ def page_data(item):
         return html_to_text(content), image
     if not item["url"]:
         return "", image
-    body, content_type = request(item["url"])
+    try:
+        body, content_type = request(item["url"])
+    except (urllib.error.URLError, TimeoutError) as error:
+        print(f"aviso: não foi possível buscar a página {item['url']}: {error}", file=sys.stderr)
+        return "", image
     if "html" not in content_type:
         return "", image
     decoded = body.decode("utf-8", errors="replace")
@@ -182,8 +198,12 @@ def download_image(url, name):
         suffix = ".jpg"
     destination = CACHE / f"{name}{suffix}"
     if not destination.exists():
-        body, _ = request(url)
-        destination.write_bytes(body)
+        try:
+            body, _ = request(url)
+            destination.write_bytes(body)
+        except (urllib.error.URLError, TimeoutError) as error:
+            print(f"aviso: imagem indisponível {url}: {error}", file=sys.stderr)
+            return ""
     return str(destination.relative_to(ROOT))
 
 
@@ -212,10 +232,22 @@ def write_article(item, index):
 def main():
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     imported = []
+    source_errors = []
     for source in config.get("apis", []):
-        imported.extend(api_items(source))
+        try:
+            imported.extend(api_items(source))
+        except (OSError, ET.ParseError, ValueError, urllib.error.URLError, TimeoutError) as error:
+            source_errors.append((source.get("url", "API"), error))
     for source in config.get("feeds", []):
-        imported.extend(rss_items(source))
+        try:
+            imported.extend(rss_items(source))
+        except (OSError, ET.ParseError, ValueError, urllib.error.URLError, TimeoutError) as error:
+            source_errors.append((source.get("url", "feed"), error))
+    for url, error in source_errors:
+        print(f"aviso: fonte indisponível {url}: {error}", file=sys.stderr)
+    if source_errors and not imported:
+        print("aviso: mantendo artigos importados já disponíveis", file=sys.stderr)
+        return
     unique = {}
     for item in imported:
         key = item["url"] or item["title"]
