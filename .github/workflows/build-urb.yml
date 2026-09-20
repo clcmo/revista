@@ -2,7 +2,7 @@ name: Build revista urbanna (test)
 
 on:
   push:
-    branches: [test/ourbanna-content]
+    branches: [test/ourbanna]
   workflow_dispatch:
 
 permissions:
