@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 105
 resumo: Burgas, na Bulgária, sediará o Eurovision 2027 após vencer com “Bangaranga”.
 data_publicacao: 2026-08-15
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/eurovision-2027-ja-tem-cidade-sede-e-nao-e-a-capital-sofia/
 imagem_arquivo: assets/cache/auto-05-eurovision-2027-j-tem-cidade-sede-e-n-o-a-capital-sofia.jpeg
 ---

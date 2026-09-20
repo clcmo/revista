@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 102
 resumo: Banda foi desconvidada de festival criado por Lukas Podolski (do 7×1) por serem “políticos demais”, mas artistas conservadores estão no lineup.
 data_publicacao: 2026-09-02
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/manifestacao-politica-nos-shows-festival-de-lukas-podolski-retirou-alphaville-por-serem-politicos-demais/
 imagem_arquivo: assets/cache/auto-02-manifesta-o-pol-tica-nos-shows-festival-de-lukas-podolski-retirou-alph.jpg
 ---

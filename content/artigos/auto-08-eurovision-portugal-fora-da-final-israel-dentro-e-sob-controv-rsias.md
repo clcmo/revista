@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 108
 resumo: Semifinal marcada por polêmicas até antes da realização, já constata o que muitos fãs estão cansados de perceber.
 data_publicacao: 2026-05-12
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/eurovision-portugal-fora-da-final-israel-dentro-e-sob-controversias/
 imagem_arquivo: assets/cache/auto-08-eurovision-portugal-fora-da-final-israel-dentro-e-sob-controv-rsias.jpg
 ---

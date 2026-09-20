@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 103
 resumo: A série Fallout revela reflexões sobre decisões humanas que levam ao colapso social e ambiental atual.
 data_publicacao: 2026-08-24
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/tips/fallout-ou-o-futuro-que-ja-cabe-no-presente/
 imagem_arquivo: assets/cache/auto-03-fallout-ou-o-futuro-que-j-cabe-no-presente.jpg
 ---

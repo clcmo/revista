@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 104
 resumo: Lito Sousa, piloto e criador do canal “Aviões e Músicas”, enfrenta doenças graves, mobilizando apoio.
 data_publicacao: 2026-08-24
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/uma-corrida-pela-vida-lito-sousa-do-canal-avioes-e-musicas-enfrenta-doenca-rara/
 imagem_arquivo: assets/cache/auto-04-uma-corrida-pela-vida-lito-sousa-do-canal-avi-es-e-m-sicas-enfrenta-do.png
 ---

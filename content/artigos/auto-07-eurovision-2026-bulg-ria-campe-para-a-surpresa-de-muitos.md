@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 107
 resumo: Com um pacote que inclui até meme, a Bulgária foi catapultada à sua inédita vitória. Mas a 70ª edição foi, em mais de um sentido, histórica além do pódio.
 data_publicacao: 2026-05-17
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/eurovision-2026-bulgaria-campea-para-a-surpresa-de-muitos/
 imagem_arquivo: assets/cache/auto-07-eurovision-2026-bulg-ria-campe-para-a-surpresa-de-muitos.jpg
 ---

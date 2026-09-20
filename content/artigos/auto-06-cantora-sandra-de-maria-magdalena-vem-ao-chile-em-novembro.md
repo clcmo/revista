@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 106
 resumo: Cantora de “Maria Magdalena” irá cantar no Chile, em novembro
 data_publicacao: 2026-08-13
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/cantora-sandra-de-maria-magdalena-vem-ao-chile-em-novembro/
 imagem_arquivo: assets/cache/auto-06-cantora-sandra-de-maria-magdalena-vem-ao-chile-em-novembro.jpg
 ---

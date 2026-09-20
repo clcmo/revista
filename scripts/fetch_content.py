@@ -296,7 +296,7 @@ def write_article(item, index):
         f"ordem: {index + 100}",
         f"resumo: {html_to_text(item['summary'])}",
         f"data_publicacao: {publication_date}",
-        "fonte: Ourbanna",
+        "fonte: urbanna",
         f"url_publicacao: {link}",
     ]
     if image:

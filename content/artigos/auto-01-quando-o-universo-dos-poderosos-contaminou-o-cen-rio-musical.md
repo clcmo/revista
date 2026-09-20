@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 101
 resumo: De um dos símbolos da noite underground de São Paulo ao “Vorcaroween”: quando a música deixa de ser apenas trilha sonora e passa a fazer parte da arquitetura do poder.
 data_publicacao: 2026-09-14
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/cronicas/fala-milla/quando-o-universo-dos-poderosos-contaminou-o-cenario-musical/
 imagem_arquivo: assets/cache/auto-01-quando-o-universo-dos-poderosos-contaminou-o-cen-rio-musical.jpeg
 ---

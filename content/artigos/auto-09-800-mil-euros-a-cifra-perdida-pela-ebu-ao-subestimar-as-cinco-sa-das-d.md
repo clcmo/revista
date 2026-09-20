@@ -5,7 +5,7 @@ secao: urbanna
 ordem: 109
 resumo: Christer Bjorkman é o primeiro todo poderoso do festival a admitir que foi tudo pelos ares: a saída dos cinco já causou impactos significativos ao Eurovision.
 data_publicacao: 2026-05-04
-fonte: Ourbanna
+fonte: urbanna
 url_publicacao: https://ourbanna.com/noticias/800-mil-euros-a-cifra-perdida-pela-ebu-ao-subestimar-as-cinco-saidas-do-eurovision/
 imagem_arquivo: assets/cache/auto-09-800-mil-euros-a-cifra-perdida-pela-ebu-ao-subestimar-as-cinco-sa-das-d.png
 ---
