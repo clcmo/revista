@@ -1,16 +1,16 @@
 ---
-titulo: Bem-vindas e bem-vindos
-autor: Seu Nome
-secao: Abertura
+titulo: O que a música revela quando o poder entra em cena
+autor: Camila L. Oliveira
+secao: Editorial
 ordem: 1
-resumo: Por que fazer uma revista em *LuaLaTeX*, versionada no GitHub e publicada como PDF.
+resumo: Uma edição sobre espaços culturais, narrativas disputadas e os shows que organizam o nosso imaginário.
 ---
-Esta é a primeira edição do modelo. Cada texto vive em um arquivo Markdown dentro de `content/artigos/`, com um cabeçalho simples de metadados. Ao enviar as mudanças para o GitHub, uma rotina automática compila a revista e publica o PDF.
+Esta edição nasce de uma pergunta: quem decide o que a música pode ocupar, contar e transformar?
 
-## O que muda para quem escreve
+A matéria de capa parte do caso do Madame Satã e da festa associada a Daniel Vorcaro para observar o encontro entre dinheiro, cultura noturna e controle da narrativa. O ponto não é reduzir uma casa ou seus artistas às escolhas de quem alugou o espaço, mas perceber como uma experiência privada pode reorganizar o sentido de um lugar historicamente ligado ao underground.
 
-Quem escreve só mexe no **Markdown**. O visual da revista fica em um único arquivo e pode ser trocado sem tocar nos artigos.
+Em **Fallout, ou o futuro que já cabe no presente**, o colapso deixa de ser uma paisagem distante. A ficção científica funciona como lente para olhar decisões humanas, ruínas sociais e o ambiente que já estamos construindo.
 
-> Separar o que se diz de como se mostra é a ideia central deste projeto.
+Nos shows, a política aparece de modo ainda mais direto. O festival de Lukas Podolski retirou o Alphaville por ser “político demais”, enquanto a presença de outros artistas reabre a pergunta sobre quais opiniões são toleradas quando a música vira evento. E a chegada de Sandra, de *Maria Magdalena*, ao Chile lembra que a circulação pop também é feita de geografias, públicos e expectativas.
 
-Se um artigo não deve entrar na edição, basta escrever `publicar: nao` no cabeçalho.
+Os textos automatizados desta edição vêm do site **urbanna** e preservam esse movimento: notícias, crítica e cultura popular sem separar palco e sociedade. Ler os artigos em conjunto é acompanhar as relações que normalmente aparecem apenas como manchete.

@@ -72,6 +72,11 @@
       at ([xshift=2cm,yshift=3.2cm]current page.south west)
       {{\sffamily\bfseries\fontsize{54}{58}\selectfont\RevTitulo\\[2.5ex]}%
        {\large\itshape\RevLema}};
+    \node[anchor=north west,text=white,inner sep=0pt,text width=15cm,align=left]
+      at ([xshift=2cm,yshift=-7.5cm]current page.north west)
+      {{\sffamily\bfseries\small\MakeUppercase{\RevCapaSecao}\\[.8ex]}%
+       {\sffamily\bfseries\fontsize{25}{29}\selectfont\RevCapaTitulo\\[.8ex]}%
+       {\large\RevCapaChamada}};
   \end{tikzpicture}%
   \ifdefempty{\RevCapaCredito}{}{%
     \vfill{\color{white}\sffamily\tiny\RevCapaCredito}}%

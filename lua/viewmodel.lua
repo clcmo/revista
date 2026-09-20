@@ -75,6 +75,9 @@ function M.iniciar()
   definir("RevSemente",    numero % 7 + 2)
   definir("RevCapaImagem", capa or "")
   definir("RevCapaCredito", md.escapar(capa_cred or ""))
+  definir("RevCapaSecao",  md.inline(ed.capa_secao or "Destaque"))
+  definir("RevCapaTitulo", md.inline(ed.capa_titulo or ed.titulo or ""))
+  definir("RevCapaChamada", md.inline(ed.capa_chamada or ed.lema or ""))
   definir("RevNumArtigos", #dados.artigos)
   local exp = {}
   for _, linha in ipairs(ed.expediente or {}) do exp[#exp + 1] = md.inline(linha) end
