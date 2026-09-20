@@ -38,6 +38,8 @@ jobs:
           cp main.pdf public/revista.pdf
           cp site/index.html public/index.html
           cp site/preview.html public/preview.html
+          cp site/preview.css public/preview.css
+          cp site/ourbanna-theme.css public/ourbanna-theme.css
           cp -R assets public/assets
 
       - name: Upload test artifact

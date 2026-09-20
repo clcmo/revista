@@ -1,0 +1,111 @@
+/* ===========================================================================
+   urbanna — folha de estilos principal
+   Carregada via functions.php (urbanna_assets). Este arquivo apenas importa
+   os parciais abaixo, na ordem correta (tokens primeiro, depois componentes).
+   Refatorado em partes menores — ver /assets/css/base, /components, /content,
+   /pages, /wordpress e /shared (parciais reaproveitados também pelo
+   login.css) para o conteúdo de cada bloco.
+   =========================================================================== */
+
+/* tokens e reset */
+@import url('base/variables.css');
+@import url('base/reset.css');
+
+/* componentes globais */
+@import url('components/eq-divider.css');
+@import url('components/topbar.css');
+@import url('components/hero.css');
+@import url('components/section-heading.css');
+@import url('components/card-grid.css');
+@import url('components/spotlight.css');
+@import url('components/tiles.css');
+@import url('components/newsletter.css');
+@import url('components/footer.css');
+@import url('components/social-icons.css');
+@import url('components/ad-slots.css');
+@import url('components/auth-card.css');
+@import url('shared/auth-social.css');
+@import url('shared/checkout-summary.css');
+@import url('components/profile.css');
+@import url('components/superlink.css');
+@import url('components/comments.css');
+@import url('components/faq.css');
+@import url('components/dot-divider.css');
+
+/* conteúdo de post */
+@import url('content/single-post.css');
+
+/* páginas específicas */
+@import url('pages/pricing.css');
+@import url('pages/account.css');
+@import url('pages/noticias.css');
+
+/* ajustes específicos do WordPress */
+@import url('wordpress/core-adjustments.css');
+
+
+/* ===========================================================================
+   urbanna — botão de toggle tema claro/escuro
+   Estilos apenas para o botão e controle de visibilidade de ícones
+   =========================================================================== */
+
+/* ========== BOTÃO DE TOGGLE ========== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--panel);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--paper);
+  font-size: 18px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--hairline);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.theme-toggle:hover {
+  background: var(--panel-2);
+  transform: scale(1.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle .icon-moon {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Quando está em modo claro, mostra o ícone do sol e esconde a lua */
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  display: block;
+  opacity: 1;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-moon {
+  display: none;
+  opacity: 0;
+}
+
+/* ========== MODO REDUZIDO ========== */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    transition: none;
+  }
+}
+
